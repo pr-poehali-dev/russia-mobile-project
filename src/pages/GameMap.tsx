@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 import { useCurrency } from '@/contexts/CurrencyContext';
+import { useMissions } from '@/contexts/MissionContext';
 
 interface MapLocation {
   id: number;
@@ -19,6 +20,7 @@ interface MapLocation {
 const GameMap = () => {
   const navigate = useNavigate();
   const { balance, addBalance } = useCurrency();
+  const { activeMission } = useMissions();
   const [playerPos, setPlayerPos] = useState({ x: 50, y: 50 });
   const [selectedLocation, setSelectedLocation] = useState<MapLocation | null>(null);
   const [zoom, setZoom] = useState(1);
@@ -114,6 +116,15 @@ const GameMap = () => {
         </Button>
 
         <div className="flex items-center gap-4">
+          <Button
+            variant="outline"
+            onClick={() => navigate('/missions')}
+            className="bg-card/80 backdrop-blur"
+          >
+            <Icon name="ScrollText" className="mr-2" />
+            Миссии
+          </Button>
+          
           <div className="flex items-center gap-2 bg-card/80 backdrop-blur px-4 py-2 rounded-lg">
             <Icon name="Coins" className="text-secondary" />
             <span className="text-xl font-bold text-secondary">{balance.toLocaleString()}</span>
@@ -179,6 +190,28 @@ const GameMap = () => {
           🏎️
         </div>
       </div>
+
+      {activeMission && (
+        <Card className="absolute top-20 left-4 p-4 bg-card/90 backdrop-blur max-w-sm">
+          <div className="flex items-start gap-3">
+            <div className="text-3xl">{activeMission.icon}</div>
+            <div className="flex-1">
+              <h3 className="font-bold text-sm mb-1">{activeMission.title}</h3>
+              <p className="text-xs text-muted-foreground mb-2">{activeMission.description}</p>
+              <div className="flex justify-between text-xs mb-1">
+                <span className="text-muted-foreground">Прогресс</span>
+                <span className="font-bold">{activeMission.progress} / {activeMission.maxProgress}</span>
+              </div>
+              <div className="w-full bg-muted rounded-full h-1.5">
+                <div 
+                  className="bg-primary h-1.5 rounded-full transition-all"
+                  style={{ width: `${(activeMission.progress / activeMission.maxProgress) * 100}%` }}
+                />
+              </div>
+            </div>
+          </div>
+        </Card>
+      )}
 
       <Card className="absolute bottom-4 right-4 w-64 h-64 p-4 bg-card/80 backdrop-blur">
         <h3 className="text-sm font-bold mb-2 flex items-center gap-2">

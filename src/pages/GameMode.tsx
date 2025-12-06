@@ -76,6 +76,16 @@ const GameMode = () => {
           </Button>
           
           <div className="flex items-center gap-4">
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => navigate('/missions')}
+              className="text-lg"
+            >
+              <Icon name="ScrollText" className="mr-2" />
+              Миссии
+            </Button>
+            
             <div className="flex items-center gap-2 bg-card px-4 py-2 rounded-lg">
               <Icon name="Coins" className="text-secondary" />
               <span className="text-xl font-bold text-secondary">{balance.toLocaleString()}</span>
