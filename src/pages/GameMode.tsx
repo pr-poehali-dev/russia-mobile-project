@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
+import { useCurrency } from '@/contexts/CurrencyContext';
 
 const GameMode = () => {
   const navigate = useNavigate();
+  const { balance } = useCurrency();
   const [selectedMode, setSelectedMode] = useState<'solo' | 'multiplayer' | null>(null);
 
   const tracks = [
@@ -76,7 +78,7 @@ const GameMode = () => {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 bg-card px-4 py-2 rounded-lg">
               <Icon name="Coins" className="text-secondary" />
-              <span className="text-xl font-bold text-secondary">12,450</span>
+              <span className="text-xl font-bold text-secondary">{balance.toLocaleString()}</span>
             </div>
           </div>
         </div>
@@ -143,7 +145,11 @@ const GameMode = () => {
                     </div>
                   </div>
 
-                  <Button className="w-full" size="lg">
+                  <Button 
+                    className="w-full" 
+                    size="lg"
+                    onClick={() => navigate('/map')}
+                  >
                     <Icon name="Play" className="mr-2" />
                     Начать гонку
                   </Button>
