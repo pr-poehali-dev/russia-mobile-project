@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CurrencyProvider } from "./contexts/CurrencyContext";
 import Index from "./pages/Index";
 import GameMode from "./pages/GameMode";
-import ServerSelect from "./pages/ServerSelect";
+import GameMap from "./pages/GameMap";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,7 +22,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/game" element={<GameMode />} />
-            <Route path="/servers" element={<ServerSelect />} />
+            <Route path="/map" element={<GameMap />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
